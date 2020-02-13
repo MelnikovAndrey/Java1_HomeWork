@@ -7,10 +7,11 @@ public class HomeWork2 {
     public static void main(String[] args) {
         int[] arr = {1,0,0,1,0};
         int[] arr2 = new int[8];
-
+        int[] arr3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
 
         task1(arr);
         task2(arr2);
+        task3(arr3);
 
     }
     public static void task1(int[] arr){
@@ -27,5 +28,17 @@ public class HomeWork2 {
           arr2[i] = i * 3;
            } System.out.println("Сгенерированный массив: " + Arrays.toString(arr2));
     }
+
+    public static void task3(int[] arr3){
+
+        for (int i = 0; i < arr3.length; i++) {
+            if(arr3[i] < 6){
+                arr3[i] *= 2;
+            }
+        } System.out.println("Все что меньше 6 умножил на 2: " + Arrays.toString(arr3));
+    }
+
 }
+
+
 
