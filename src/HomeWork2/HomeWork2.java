@@ -14,7 +14,7 @@ public class HomeWork2 {
         task2(arr2);
         task3(arr3);
         task4(arr4);
-
+        task5();
     }
 
         public static void task1(int[] arr) {
@@ -54,15 +54,22 @@ public class HomeWork2 {
                             arr4[i][j] = 1;
                         } else if ((i + j) == (n - 1)) {
                             arr4[i][j] = 1;
-                        } else;
-                        System.out.print(" " + arr4[i][j] + " ");
+                        } System.out.print(" " + arr4[i][j] + " ");
                     } System.out.println();
                 }
         }
 
-        public static void task5(int[][] arr3){
-
-
+        public static void task5(){
+            int[] arrMaxMin = {3, 4, 7, 98, 45, 23, 54, 56};
+            int max = arrMaxMin[0], min = arrMaxMin[0];
+            for (int value : arrMaxMin) {
+                if (value > max) {
+                    max = value;
+                } else if (value < min) {
+                    min = value;
+                }
+            }
+            System.out.println("В массиве " + Arrays.toString(arrMaxMin) + " максимальное число = " + max + ", минимальное число = " + min);
         }
     }
 
