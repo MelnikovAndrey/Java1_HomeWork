@@ -18,6 +18,7 @@ public class HomeWork3 {
         System.out.println();
 
         guessTheNumber(a, b);
+        guessTheWord();
     }
 
     public static void guessTheNumber(int n, int x) {
@@ -25,11 +26,10 @@ public class HomeWork3 {
         int maxTryCount = x;
         System.out.println("Угадайте загаданное число.\nУ Вас осталось " + x + " попытки");
 
-
-        for (int i = 1; i <= x ; i++) {
+        for (int i = 1; i <= x; i++) {
             int userAnswer = scanner.nextInt();
             maxTryCount--;
-            if(maxTryCount == 0){
+            if (maxTryCount == 0) {
                 System.out.println("Вы проиграли! Все попытки закончились. Было загадано число: " + num);
                 break;
             } else if (userAnswer == num) {
@@ -42,7 +42,31 @@ public class HomeWork3 {
             }
             System.out.println("У Вас осталось " + maxTryCount + " попытки");
         }
+    }
 
+    public static void guessTheWord() {
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado",
+                "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango",
+                "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple",
+                "pumpkin", "potato"};
+        String answer = words[rand.nextInt(words.length)];
+        StringBuilder strBuffer = new StringBuilder("###############");
+        System.out.println("Попробуйте угадать загаданное название фрукта");
+
+        for ( ; ; ) {
+            String userAnswer = scanner.next();
+            int x = (Math.min(userAnswer.length(), answer.length()));
+            if (answer.equals(userAnswer)) {
+                System.out.println("Поздравляем, Вы угадали. Игра окончена");
+                System.exit(0);
+            } else {
+                for (int j = 0; j < x; j++) {
+                    if (userAnswer.charAt(j) == answer.charAt(j)) {
+                        strBuffer.setCharAt(j, answer.charAt(j));
+                    }
+                } System.out.println(strBuffer.toString());
+            }
+        }
     }
 }
 
