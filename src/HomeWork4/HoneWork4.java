@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class HoneWork4 {
-    public static int SIZE = 3;
-    public static int DOTS_TO_WIN = 3;
+    public static int SIZE = 5;
+    public static int DOTS_TO_WIN = 4;
     public static final char DOT_EMPTY = '•';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
@@ -42,31 +42,51 @@ public class HoneWork4 {
     }
 
     public static boolean checkWin(char symb) {
-        // проверка по оси Х
-        for (int i = 0; i < DOTS_TO_WIN; i++) {
-            if (map[i][0] == symb && map[i][1] == symb && map[i][2] == symb) return true;
-        }
-        // проверка по оси Y
-        for (int i = 0; i < DOTS_TO_WIN; i++) {
-            if (map[0][i] == symb && map[1][i] == symb && map[2][i] == symb) return true;
-        }
-        // проверка по основной диагонали
-        int point = 0;
-        for (int i = 0; i < DOTS_TO_WIN; i++) {
-            for (int j = 0; j < DOTS_TO_WIN; j++) {
-                if (i == j && map[j][i] == symb) point++;
-            }
-        } if (point == DOTS_TO_WIN) return true;
 
-        // проверка по обратной диагонали
-        int count = 0;
-        for (int i = 0; i < DOTS_TO_WIN; i++) {
-            for (int j = 0; j < DOTS_TO_WIN; j++) {
-                if ((i + j) == (DOTS_TO_WIN - 1) && map[j][i] == symb) count++;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == symb) {
+                    checkWinHorizontal(i, j, symb);
+                    if(checkWinHorizontal(i, j, symb)) return true;
+                    checkWinVertical(i, j, symb);
+                    if(checkWinVertical(i, j, symb)) return true;
+                    checkWinDiagonal(i, j, symb);
+                    if(checkWinDiagonal(i, j, symb)) return true;
+                    checkWinDiagonalRev(i, j, symb);
+                    if(checkWinDiagonalRev(i, j, symb)) return true;
+                }
             }
-        } if (count == DOTS_TO_WIN) return true;
-        return false;
+        } return false;
     }
+
+        public static boolean checkWinHorizontal(int x, int y, char symb) {
+            int point = 1;
+            for (int i = 1; i < DOTS_TO_WIN; i++) {
+                if ((y + i) < SIZE && map[x][y + i] == symb) point++;
+            }
+            return point == DOTS_TO_WIN;
+        }
+        public static boolean checkWinVertical(int x, int y, char symb) {
+            int point = 1;
+            for (int i = 1; i < DOTS_TO_WIN; i++) {
+                if ((x + i) < SIZE && map[x + i][y] == symb) point++;
+            }
+            return point == DOTS_TO_WIN;
+        }
+        public static boolean checkWinDiagonal(int x, int y, char symb) {
+            int point = 1;
+            for (int i = 1; i < DOTS_TO_WIN; i++) {
+                if ((y + i) < SIZE && (x + i) < SIZE && map[x + i][y + i] == symb) point++;
+            }
+            return point == DOTS_TO_WIN;
+        }
+        public static boolean checkWinDiagonalRev(int x, int y, char symb) {
+        int point = 1;
+        for (int i = 1; i < DOTS_TO_WIN; i++) {
+            if ((x + i) < SIZE && (y - i) > 0 && map[x + i][y - i] == symb) point++;
+        }
+            return point == DOTS_TO_WIN;
+        }
 
     public static boolean isMapFull() {
         for (int i = 0; i < SIZE; i++) {
@@ -79,6 +99,17 @@ public class HoneWork4 {
 
     public static void aiTurn() {
         int x, y;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(isCellValid(i, j)){
+                    map[i][j] = DOT_X;
+                    if(checkWin(DOT_X)){
+                        map[i][j] = DOT_O;
+                        return;
+                    } map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
         do {
             x = rand.nextInt(SIZE);
             y = rand.nextInt(SIZE);
@@ -99,8 +130,7 @@ public class HoneWork4 {
 
     public static boolean isCellValid(int x, int y) {
         if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
-        if (map[y][x] == DOT_EMPTY) return true;
-        return false;
+        return map[y][x] == DOT_EMPTY;
     }
 
     public static void initMap() {
