@@ -46,13 +46,9 @@ public class HoneWork4 {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (map[i][j] == symb) {
-                    checkWinHorizontal(i, j, symb);
                     if(checkWinHorizontal(i, j, symb)) return true;
-                    checkWinVertical(i, j, symb);
                     if(checkWinVertical(i, j, symb)) return true;
-                    checkWinDiagonal(i, j, symb);
                     if(checkWinDiagonal(i, j, symb)) return true;
-                    checkWinDiagonalRev(i, j, symb);
                     if(checkWinDiagonalRev(i, j, symb)) return true;
                 }
             }
@@ -80,7 +76,7 @@ public class HoneWork4 {
             }
             return point == DOTS_TO_WIN;
         }
-        public static boolean checkWinDiagonalRev(int x, int y, char symb) {
+        public static boolean checkWinDiagonalRev(int y, int x, char symb) {
         int point = 1;
         for (int i = 1; i < DOTS_TO_WIN; i++) {
             if ((x + i) < SIZE && (y - i) > 0 && map[x + i][y - i] == symb) point++;
@@ -99,6 +95,19 @@ public class HoneWork4 {
 
     public static void aiTurn() {
         int x, y;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(isCellValid(i, j)){
+                    map[i][j] = DOT_O;
+                    if(checkWin(DOT_O)){
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if(isCellValid(i, j)){
@@ -106,29 +115,30 @@ public class HoneWork4 {
                     if(checkWin(DOT_X)){
                         map[i][j] = DOT_O;
                         return;
-                    } map[i][j] = DOT_EMPTY;
+                    }
+                    map[i][j] = DOT_EMPTY;
                 }
             }
         }
+
         do {
-            x = rand.nextInt(SIZE);
             y = rand.nextInt(SIZE);
-        } while (!isCellValid(x, y));
+            x = rand.nextInt(SIZE);
+        } while (!isCellValid(y, x));
         System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
         map[y][x] = DOT_O;
     }
-
     public static void humanTurn() {
         int x, y;
         do {
-            System.out.println("Введите координаты в формате X Y");
-            x = sc.nextInt() - 1;
+            System.out.println("Введите координаты в формате Y X (ряд столбец)");
             y = sc.nextInt() - 1;
-        } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
+            x = sc.nextInt() - 1;
+        } while (!isCellValid(y, x)); // while(isCellValid(x, y) == false)
         map[y][x] = DOT_X;
     }
 
-    public static boolean isCellValid(int x, int y) {
+    public static boolean isCellValid(int y, int x) {
         if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
         return map[y][x] == DOT_EMPTY;
     }
