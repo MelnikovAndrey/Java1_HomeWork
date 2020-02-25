@@ -79,7 +79,7 @@ public class HoneWork4 {
         public static boolean checkWinDiagonalRev(int y, int x, char symb) {
         int point = 1;
         for (int i = 1; i < DOTS_TO_WIN; i++) {
-            if ((x + i) < SIZE && (y - i) > 0 && map[x + i][y - i] == symb) point++;
+            if ((x + i) < SIZE && (y - i) >= 0 && map[x + i][y - i] == symb) point++;
         }
             return point == DOTS_TO_WIN;
         }
