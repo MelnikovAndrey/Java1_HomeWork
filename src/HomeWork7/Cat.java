@@ -14,6 +14,7 @@ public class Cat {
     public void eat(Plate p) {
         System.out.println("Кот " + name + " кушает ...");
         satiety = p.decreaseFood(appetite);
+        System.out.println();
     }
 
     public boolean getSatiety() {
@@ -23,4 +24,6 @@ public class Cat {
     public String getName() {
         return name;
     }
+
+
 }

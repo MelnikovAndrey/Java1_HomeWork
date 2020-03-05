@@ -31,5 +31,6 @@ public class Plate {
     public void putMoreFood() {
         int n = sc.nextInt();
         food += n;
+        System.out.println();
     }
 }

@@ -18,5 +18,7 @@ public class Main {
         }
 
         plate.putMoreFood();
+        System.out.println();
+
     }
 }
