@@ -16,7 +16,7 @@ public class Main {
             System.out.println();
 
         }
-        System.out.println("Докинь еды бро, котейке пожрать не хватает))");
+
         plate.putMoreFood();
     }
 }
